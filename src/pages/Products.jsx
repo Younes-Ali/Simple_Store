@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import WOW from 'wowjs';
+import { WoW } from 'wowjs';
 
 export default function Products() {
   const [products, setProducts] = useState([]);

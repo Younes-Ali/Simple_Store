@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import WOW from "wowjs";
+import { WoW } from "wowjs";
 import aboutImg from "../assets/images/aboutSec.jpg";
 
 export default function HeroAbout() {

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import WOW from 'wowjs';
+import { WoW } from 'wowjs';
 
 export default function ContactSection() {
   const formik = useFormik({

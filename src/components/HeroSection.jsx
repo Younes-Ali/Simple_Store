@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import WOW from 'wowjs';
+import { WoW } from 'wowjs';
 import heroImg from '../assets/images/heroSec.jpg';
 
 export default function HeroSection() {

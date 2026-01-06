@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import WOW from 'wowjs';
+import { WoW } from 'wowjs';
 
 export default function ProductDetails() {
   const { id } = useParams();

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import WOW from "wowjs";
+import { WoW } from "wowjs";
 
 export default function Team() {
     useEffect(() => {
