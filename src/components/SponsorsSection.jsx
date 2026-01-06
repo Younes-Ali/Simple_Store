@@ -1,17 +1,16 @@
 import { useEffect } from 'react';
-import WOW from 'wowjs';
-
 export default function SponsorsSection() {
   
 
-  const wow = new WOW.WOW({
-    live: false,
-  });
+
   const brands = ['VOGUE', 'ELLE', 'GUCCI', 'PRADA', 'CHANEL', 'DIOR'];
 
 
   useEffect(() => {
-    wow.init();
+    import("wowjs").then((module) => {
+      const WOW = module.default || module.WOW;
+      new WOW.WOW({ live: false }).init();
+    });
   }, []);
 
   return (

@@ -1,10 +1,6 @@
 import { useEffect } from "react";
-import WOW from "wowjs";
 
 export default function Team() {
-    const wow = new WOW.WOW({
-        live: false,
-        })
     const team = [
         { name: "Younes Ali", role: "Creative Director" },
         { name: "Mostafa Ali", role: "Head Designer" },
@@ -12,9 +8,11 @@ export default function Team() {
         { name: "Abo Treka", role: "Production Lead" },
     ];
 
-
     useEffect(() => {
-        wow.init();
+        import("wowjs").then((module) => {
+        const WOW = module.default || module.WOW;
+        new WOW.WOW({ live: false }).init();
+        });
     }, []);
     return (
         <section className="py-24 px-5 bg-white">

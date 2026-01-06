@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import WOW from 'wowjs';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -11,9 +10,6 @@ export default function Products() {
   const [categories, setCategories] = useState([]);
 
 
-  const wow = new WOW.WOW({
-    live: false
-  });
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -44,7 +40,10 @@ export default function Products() {
 
   useEffect(() => {
     if (!loading) {
-      wow.init();
+      import("wowjs").then((module) => {
+      const WOW = module.default || module.WOW;
+      new WOW.WOW({ live: false }).init();
+    });
     }
   }, [loading, selectedCategory]);
 

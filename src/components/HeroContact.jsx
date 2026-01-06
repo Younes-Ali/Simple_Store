@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import WOW from 'wowjs';
 export default function HeroContact() {
   useEffect(() => {
-      new WOW.WOW({
-        live: false,
-      }).init();
-    }, []);
+    import("wowjs").then((module) => {
+      const WOW = module.default || module.WOW;
+      new WOW.WOW({ live: false }).init();
+    });
+  }, []);
   return (
     <section className="min-h-[60vh] flex flex-col justify-center items-center text-center px-5 bg-gray-50">
         <h1 className="wow animate__animated animate__fadeInUp text-5xl md:text-7xl lg:text-8xl font-light tracking-widest mb-5 uppercase"

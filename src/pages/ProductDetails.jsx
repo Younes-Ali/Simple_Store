@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import WOW from 'wowjs';
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -11,9 +10,7 @@ export default function ProductDetails() {
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
-  const wow = new WOW.WOW({
-    live: false
-  });
+
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -33,7 +30,10 @@ export default function ProductDetails() {
 
   useEffect(() => {
     if (product) {
-      wow.init();
+      import("wowjs").then((module) => {
+      const WOW = module.default || module.WOW;
+      new WOW.WOW({ live: false }).init();
+    });
     }
   }, [product]);
 

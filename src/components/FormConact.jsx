@@ -1,36 +1,30 @@
 import { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import WOW from "wowjs";
 
 export default function FormConact() {
-    
-    const wow = new WOW.WOW({
-        live: true,
-    }); 
-
     const formik = useFormik({
         initialValues: {
-            name: "",
-            email: "",
-            phone: "",
-            subject: "",
-            message: "",
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
         },
         validationSchema: Yup.object({
-            name: Yup.string().min(2).required(),
-            email: Yup.string().email().required(),
-            phone: Yup.string().min(10),
-            subject: Yup.string().required(),
-            message: Yup.string().min(10).required(),
+        name: Yup.string().min(2).required(),
+        email: Yup.string().email().required(),
+        phone: Yup.string().min(10),
+        subject: Yup.string().required(),
+        message: Yup.string().min(10).required(),
         }),
         onSubmit: (values, { resetForm }) => {
-            console.log(values);
-            alert("Thank you for contacting us!");
-            resetForm();
+        console.log(values);
+        alert("Thank you for contacting us!");
+        resetForm();
         },
     });
-    
+
     const contactInfo = [
         { title: "Email", content: "hello@fashionbrand.com", icon: "📧" },
         { title: "Phone", content: "+1 (555) 123-4567", icon: "📞" },
@@ -38,9 +32,11 @@ export default function FormConact() {
         { title: "Hours", content: "Mon - Fri: 9AM - 6PM", icon: "🕒" },
     ];
 
-
     useEffect(() => {
-        wow.init();
+        import("wowjs").then((module) => {
+        const WOW = module.default || module.WOW;
+        new WOW.WOW({ live: false }).init();
+        });
     }, []);
     return (
         <section className="py-24 px-5">
@@ -119,17 +115,17 @@ export default function FormConact() {
                 </div>
                 ))}
             </div>
-                <div className="mt-10 h-64 bg-gray-200 flex items-center justify-center">
-                    <iframe
-                        className="w-full h-full"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d33854.562523679095!2d31.167779165872!3d30.458952568215956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145875f6592ee989%3A0xa0f7a3872335c0ce!2sBanha%2C%20Qism%20Banha%2C%20Banha%2C%20Al-Qalyubia%20Governorate!5e1!3m2!1sen!2seg!4v1767722657018!5m2!1sen!2seg"
-                        style={{ border: 0 }}
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="Banha Location Map"
-                        />
-                </div>    
+            <div className="mt-10 h-64 bg-gray-200 flex items-center justify-center">
+                <iframe
+                className="w-full h-full"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d33854.562523679095!2d31.167779165872!3d30.458952568215956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145875f6592ee989%3A0xa0f7a3872335c0ce!2sBanha%2C%20Qism%20Banha%2C%20Banha%2C%20Al-Qalyubia%20Governorate!5e1!3m2!1sen!2seg!4v1767722657018!5m2!1sen!2seg"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Banha Location Map"
+                />
+            </div>
             </div>
         </div>
         </section>

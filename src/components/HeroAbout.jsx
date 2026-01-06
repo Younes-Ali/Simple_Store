@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import WOW from "wowjs";
 import aboutImg from "../assets/images/aboutSec.jpg";
 
 export default function HeroAbout() {
     useEffect(() => {
-        new WOW.WOW({
-        live: false,
-        }).init();
+        import("wowjs").then((module) => {
+        const WOW = module.default || module.WOW;
+        new WOW.WOW({ live: false }).init();
+        });
     }, []);
     return (
         <section className="relative min-h-[60vh] flex flex-col justify-center items-center text-center px-5 bg-gray-50">

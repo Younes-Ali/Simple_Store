@@ -1,10 +1,5 @@
 import { useEffect } from "react";
-import WOW from "wowjs";
 export default function Values() {
-    
-    const wow = new WOW.WOW({
-        live: false,
-    });
     const values = [
         {
         title: "Quality",
@@ -29,7 +24,10 @@ export default function Values() {
     ];
 
     useEffect(() => {
-        wow.init();
+        import("wowjs").then((module) => {
+        const WOW = module.default || module.WOW;
+        new WOW.WOW({ live: false }).init();
+        });
     }, []);
 
     return (

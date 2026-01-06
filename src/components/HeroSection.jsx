@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
-import WOW from 'wowjs';
 import heroImg from '../assets/images/heroSec.jpg';
 
 export default function HeroSection() {
   useEffect(() => {
-    new WOW.WOW({
-      live: false
-    }).init();
+    import("wowjs").then((module) => {
+      const WOW = module.default || module.WOW;
+      new WOW.WOW({ live: false }).init();
+    });
   }, []);
 
   return (
