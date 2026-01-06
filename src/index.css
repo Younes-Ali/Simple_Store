@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Oswald:wght@200..700&display=swap');
+@theme{
+  --font-oswald: 'Oswald', sans-serif;
+  --font-dancing-script: 'Dancing Script', cursive;
+  --color-creamy: #f8f8f7;
+}

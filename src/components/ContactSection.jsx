@@ -1,0 +1,134 @@
+import { useEffect, useRef } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default function ContactSection() {
+  const contactRef = useRef(null);
+
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      message: ''
+    },
+    validationSchema: Yup.object({
+      name: Yup.string()
+        .min(2, 'Name must be at least 2 characters')
+        .required('Name is required'),
+      email: Yup.string()
+        .email('Invalid email address')
+        .required('Email is required'),
+      message: Yup.string()
+        .min(10, 'Message must be at least 10 characters')
+        .required('Message is required')
+    }),
+    onSubmit: (values, { resetForm }) => {
+      console.log('Form values:', values);
+      alert('Form submitted successfully!');
+      resetForm();
+    }
+  });
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        '.contact-form',
+        { opacity: 0, y: 60 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: contactRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    }, contactRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={contactRef} className="py-24 px-5 bg-white">
+      <div className="contact-form max-w-2xl mx-auto">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-wider mb-10 text-center uppercase">
+          Get In Touch
+        </h2>
+        <div className="flex flex-col gap-5">
+          <div>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={`w-full px-5 py-4 text-base border ${
+                formik.touched.name && formik.errors.name
+                  ? 'border-red-500'
+                  : 'border-gray-200'
+              } bg-gray-50 focus:border-gray-400 focus:outline-none transition-colors duration-300`}
+            />
+            {formik.touched.name && formik.errors.name && (
+              <p className="text-red-500 text-sm mt-1">{formik.errors.name}</p>
+            )}
+          </div>
+
+          <div>
+            <input
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={`w-full px-5 py-4 text-base border ${
+                formik.touched.email && formik.errors.email
+                  ? 'border-red-500'
+                  : 'border-gray-200'
+              } bg-gray-50 focus:border-gray-400 focus:outline-none transition-colors duration-300`}
+            />
+            {formik.touched.email && formik.errors.email && (
+              <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
+            )}
+          </div>
+
+          <div>
+            <textarea
+              name="message"
+              placeholder="Your Message"
+              rows="6"
+              value={formik.values.message}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={`w-full px-5 py-4 text-base border ${
+                formik.touched.message && formik.errors.message
+                  ? 'border-red-500'
+                  : 'border-gray-200'
+              } bg-gray-50 resize-y focus:border-gray-400 focus:outline-none transition-colors duration-300`}
+            />
+            {formik.touched.message && formik.errors.message && (
+              <p className="text-red-500 text-sm mt-1">{formik.errors.message}</p>
+            )}
+          </div>
+
+          <button 
+            type="button"
+            onClick={formik.handleSubmit}
+            disabled={formik.isSubmitting}
+            className="px-12 py-4 text-base font-medium tracking-widest uppercase bg-gray-900 text-white hover:bg-gray-800 disabled:bg-gray-400 transition-all duration-300 mt-3"
+          >
+            {formik.isSubmitting ? 'Sending...' : 'Send Message'}
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
