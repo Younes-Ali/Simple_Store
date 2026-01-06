@@ -113,10 +113,10 @@ export default function About() {
   ];
 
   const team = [
-    { name: 'Sarah Johnson', role: 'Creative Director' },
-    { name: 'Michael Chen', role: 'Head Designer' },
-    { name: 'Emma Davis', role: 'Sustainability Manager' },
-    { name: 'James Wilson', role: 'Production Lead' }
+    { name: 'Younes Ali', role: 'Creative Director' },
+    { name: 'Mostafa Ali', role: 'Head Designer' },
+    { name: 'Yasser Maher', role: 'Sustainability Manager' },
+    { name: 'Abo Treka', role: 'Production Lead' }
   ];
 
   return (
