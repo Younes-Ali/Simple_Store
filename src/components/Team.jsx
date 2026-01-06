@@ -1,18 +1,21 @@
 import { useEffect } from "react";
-import { WoW } from "wowjs";
+import WOW from "wowjs";
 
 export default function Team() {
-    useEffect(() => {
-        new WOW.WOW({
+    const wow = new WOW.WOW({
         live: false,
-        }).init();
-    }, []);
+        })
     const team = [
         { name: "Younes Ali", role: "Creative Director" },
         { name: "Mostafa Ali", role: "Head Designer" },
         { name: "Yasser Maher", role: "Sustainability Manager" },
         { name: "Abo Treka", role: "Production Lead" },
     ];
+
+
+    useEffect(() => {
+        wow.init();
+    }, []);
     return (
         <section className="py-24 px-5 bg-white">
         <div className="max-w-6xl mx-auto">

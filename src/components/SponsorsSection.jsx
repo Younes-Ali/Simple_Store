@@ -1,14 +1,18 @@
 import { useEffect } from 'react';
-import { WoW } from 'wowjs';
+import WOW from 'wowjs';
 
 export default function SponsorsSection() {
-  useEffect(() => {
-    new WOW.WOW({
-      live: false
-    }).init();
-  }, []);
+  
 
+  const wow = new WOW.WOW({
+    live: false,
+  });
   const brands = ['VOGUE', 'ELLE', 'GUCCI', 'PRADA', 'CHANEL', 'DIOR'];
+
+
+  useEffect(() => {
+    wow.init();
+  }, []);
 
   return (
     <section className="py-20 px-5 bg-white">

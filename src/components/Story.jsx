@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { WoW } from "wowjs";
+import WOW from "wowjs";
 
 export default function Story() {
     useEffect(() => {

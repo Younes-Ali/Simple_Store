@@ -1,43 +1,47 @@
 import { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { WoW } from "wowjs";
+import WOW from "wowjs";
 
 export default function FormConact() {
-    useEffect(() => {
-        new WOW.WOW({
+    
+    const wow = new WOW.WOW({
         live: true,
-        }).init();
-    }, []);
+    }); 
 
     const formik = useFormik({
         initialValues: {
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
+            name: "",
+            email: "",
+            phone: "",
+            subject: "",
+            message: "",
         },
         validationSchema: Yup.object({
-        name: Yup.string().min(2).required(),
-        email: Yup.string().email().required(),
-        phone: Yup.string().min(10),
-        subject: Yup.string().required(),
-        message: Yup.string().min(10).required(),
+            name: Yup.string().min(2).required(),
+            email: Yup.string().email().required(),
+            phone: Yup.string().min(10),
+            subject: Yup.string().required(),
+            message: Yup.string().min(10).required(),
         }),
         onSubmit: (values, { resetForm }) => {
-        console.log(values);
-        alert("Thank you for contacting us!");
-        resetForm();
+            console.log(values);
+            alert("Thank you for contacting us!");
+            resetForm();
         },
     });
-
+    
     const contactInfo = [
         { title: "Email", content: "hello@fashionbrand.com", icon: "📧" },
         { title: "Phone", content: "+1 (555) 123-4567", icon: "📞" },
         { title: "Address", content: "123 Fashion Street, New York", icon: "📍" },
         { title: "Hours", content: "Mon - Fri: 9AM - 6PM", icon: "🕒" },
     ];
+
+
+    useEffect(() => {
+        wow.init();
+    }, []);
     return (
         <section className="py-24 px-5">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { WoW } from 'wowjs';
+import WOW from 'wowjs';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -9,6 +9,11 @@ export default function Products() {
   const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [categories, setCategories] = useState([]);
+
+
+  const wow = new WOW.WOW({
+    live: false
+  });
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -27,6 +32,7 @@ export default function Products() {
       try {
         const response = await axios.get('https://fakestoreapi.com/products/categories');
         setCategories(['all', ...response.data]);
+        wow.sync();
       } catch (err) {
         console.error('Failed to load categories');
       }
@@ -38,9 +44,7 @@ export default function Products() {
 
   useEffect(() => {
     if (!loading) {
-      new WOW.WOW({
-        live: false
-      }).init();
+      wow.init();
     }
   }, [loading, selectedCategory]);
 

@@ -1,12 +1,10 @@
 import { useEffect } from "react";
-import { WoW } from "wowjs";
+import WOW from "wowjs";
 export default function Values() {
-    useEffect(() => {
-        new WOW.WOW({
+    
+    const wow = new WOW.WOW({
         live: false,
-        }).init();
-    }, []);
-
+    });
     const values = [
         {
         title: "Quality",
@@ -29,6 +27,10 @@ export default function Values() {
             "Honesty and transparency guide our relationships with customers and partners.",
         },
     ];
+
+    useEffect(() => {
+        wow.init();
+    }, []);
 
     return (
         <section className="py-24 px-5 bg-gray-50">
