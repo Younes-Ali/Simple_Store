@@ -114,7 +114,7 @@ export default function Products() {
                       />
                     </figure>
                     <div className="card-body">
-                      <h2 className="card-title text-base font-semibold line-clamp-2">
+                      <h2 className="card-title text-white text-base font-semibold line-clamp-2">
                         {product.title}
                       </h2>
                       <p className="text-sm text-gray-500 uppercase tracking-wider">
@@ -131,7 +131,7 @@ export default function Products() {
                         <span className="text-sm text-gray-500">({product.rating.count})</span>
                       </div>
                       <div className="card-actions justify-between items-center mt-4">
-                        <span className="text-2xl font-bold">${product.price}</span>
+                        <span className="text-2xl text-white font-bold">${product.price}</span>
                         <button className="btn btn-sm bg-gray-900 text-white hover:bg-gray-800 border-none">
                           View Details
                         </button>
