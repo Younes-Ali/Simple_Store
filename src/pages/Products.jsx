@@ -85,7 +85,7 @@ export default function Products() {
       </section>
 
       {/* Products Grid */}
-      <section className="py-16 px-5 bg-white">
+      <section className="py-16 px-5 text-white bg-white">
         <div className="max-w-7xl mx-auto">
           {loading ? (
             <div className="flex justify-center items-center min-h-100">
