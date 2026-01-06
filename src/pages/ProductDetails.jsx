@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import gsap from 'gsap';
+import WOW from 'wowjs';
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -10,8 +10,6 @@ export default function ProductDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
-
-  const contentRef = useRef(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -31,21 +29,9 @@ export default function ProductDetails() {
 
   useEffect(() => {
     if (product) {
-      const ctx = gsap.context(() => {
-        gsap.fromTo(
-          '.product-image',
-          { opacity: 0, x: -50 },
-          { opacity: 1, x: 0, duration: 1, ease: 'power3.out' }
-        );
-
-        gsap.fromTo(
-          '.product-info',
-          { opacity: 0, x: 50 },
-          { opacity: 1, x: 0, duration: 1, delay: 0.2, ease: 'power3.out' }
-        );
-      }, contentRef);
-
-      return () => ctx.revert();
+      new WOW.WOW({
+        live: false
+      }).init();
     }
   }, [product]);
 
@@ -75,7 +61,7 @@ export default function ProductDetails() {
   }
 
   return (
-    <div ref={contentRef} className="font-sans text-gray-900 bg-white min-h-screen">
+    <div className="font-sans text-gray-900 bg-white min-h-screen">
       {/* Breadcrumb */}
       <div className="bg-gray-50 py-4 px-5">
         <div className="max-w-7xl mx-auto">
@@ -94,7 +80,7 @@ export default function ProductDetails() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Product Image */}
-            <div className="product-image">
+            <div className="wow animate__animated animate__fadeInLeft" data-wow-duration="1s">
               <div className="bg-white p-8 rounded-lg shadow-lg">
                 <img
                   src={product.image}
@@ -105,7 +91,7 @@ export default function ProductDetails() {
             </div>
 
             {/* Product Info */}
-            <div className="product-info">
+            <div className="wow animate__animated animate__fadeInRight" data-wow-delay="0.2s" data-wow-duration="1s">
               <div className="badge badge-outline uppercase text-xs mb-4">
                 {product.category}
               </div>

@@ -1,14 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import WOW from 'wowjs';
 
 export default function ContactSection() {
-  const contactRef = useRef(null);
-
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -34,30 +29,14 @@ export default function ContactSection() {
   });
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.contact-form',
-        { opacity: 0, y: 60 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: contactRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none none'
-          }
-        }
-      );
-    }, contactRef);
-
-    return () => ctx.revert();
+    new WOW.WOW({
+      live: false
+    }).init();
   }, []);
 
   return (
-    <section ref={contactRef} className="py-24 px-5 bg-white">
-      <div className="contact-form max-w-2xl mx-auto">
+    <section className="py-24 px-5 bg-white">
+      <div className="max-w-2xl mx-auto wow animate__animated animate__fadeInUp" data-wow-duration="1s">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-wider mb-10 text-center uppercase">
           Get In Touch
         </h2>

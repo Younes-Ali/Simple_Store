@@ -1,37 +1,16 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useEffect } from 'react';
+import WOW from 'wowjs';
 
 export default function AboutSection() {
-  const aboutRef = useRef(null);
-
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.about-content',
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: aboutRef.current,
-            start: 'top 70%',
-            toggleActions: 'play none none none'
-          }
-        }
-      );
-    }, aboutRef);
-
-    return () => ctx.revert();
+    new WOW.WOW({
+      live: false
+    }).init();
   }, []);
 
   return (
-    <section ref={aboutRef} className="py-24 px-5 bg-gray-50">
-      <div className="about-content max-w-4xl mx-auto text-center">
+    <section className="py-24 px-5 bg-gray-50">
+      <div className="max-w-4xl mx-auto text-center wow animate__animated animate__fadeInUp" data-wow-duration="1s">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-wider mb-8 uppercase">
           About Our Brand
         </h2>
