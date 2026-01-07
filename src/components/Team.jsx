@@ -1,11 +1,15 @@
 import { useEffect } from "react";
+import img1 from "../assets/images/pepole/person1.jpg";
+import img2 from "../assets/images/pepole/person2.jpg";
+import img3 from "../assets/images/pepole/person3.jpg";
+import img4 from "../assets/images/pepole/person4.jpg";
 
 export default function Team() {
     const team = [
-        { name: "Younes Ali", role: "Creative Director" },
-        { name: "Mostafa Ali", role: "Head Designer" },
-        { name: "Yasser Maher", role: "Sustainability Manager" },
-        { name: "Abo Treka", role: "Production Lead" },
+        { name: "Younes Ali", role: "Creative Director", photo: img1 },
+        { name: "Mostafa Ali", role: "Head Designer", photo: img2 },
+        { name: "Yasser Maher", role: "Sustainability Manager", photo: img3 },
+        { name: "Abo Treka", role: "Production Lead", photo: img4 },
     ];
 
     useEffect(() => {
@@ -31,7 +35,9 @@ export default function Team() {
                 data-wow-delay={`${index * 0.15}s`}
                 data-wow-duration="0.8s"
                 >
-                <div className="w-48 h-48 mx-auto mb-4 bg-gray-200 rounded-full"></div>
+                <div className="w-48 h-48 mx-auto mb-4 bg-gray-200 rounded-full overflow-hidden ">
+                    <img className="w-full object-cover" src={member.photo} alt={member.name} />
+                </div>
                 <h3 className="text-xl font-semibold mb-2">{member.name}</h3>
                 <p className="text-gray-600 uppercase text-sm tracking-wider">
                     {member.role}
