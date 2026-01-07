@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Breadcrumb from '../components/Breadcrumb';
+import { cartProducts } from '../components/store';
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -10,7 +12,7 @@ export default function ProductDetails() {
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
-
+  const addToCart = cartProducts((state) => state.addToCart);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -31,14 +33,24 @@ export default function ProductDetails() {
   useEffect(() => {
     if (product) {
       import("wowjs").then((module) => {
-      const WOW = module.default || module.WOW;
-      new WOW.WOW({ live: false }).init();
-    });
+        const WOW = module.default || module.WOW;
+        new WOW.WOW({ live: false }).init();
+      });
     }
   }, [product]);
 
   const handleAddToCart = () => {
+    addToCart({ ...product, quantity });
     alert(`Added ${quantity} ${product.title} to cart!`);
+    setQuantity(1); // Reset quantity after adding
+  };
+
+  const increaseQty = () => {
+    setQuantity(prev => prev + 1);
+  };
+
+  const decreaseQty = () => {
+    setQuantity(prev => prev > 1 ? prev - 1 : 1);
   };
 
   if (loading) {
@@ -64,20 +76,8 @@ export default function ProductDetails() {
 
   return (
     <div className="font-sans text-gray-900 bg-white min-h-screen">
-      {/* Breadcrumb */}
-      <div className="bg-gray-50 py-4 px-5">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-sm breadcrumbs">
-            <ul>
-              <li><Link to="/" className="hover:text-gray-600">Home</Link></li>
-              <li><Link to="/products" className="hover:text-gray-600">Products</Link></li>
-              <li className="font-semibold">{product.title}</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Product Details */}
+      <Breadcrumb title={product.title} />
+      
       <section className="py-16 px-5">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
@@ -138,7 +138,7 @@ export default function ProductDetails() {
                 </label>
                 <div className="flex items-center gap-4">
                   <button 
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    onClick={decreaseQty}
                     className="btn btn-circle btn-outline"
                   >
                     -
@@ -147,7 +147,7 @@ export default function ProductDetails() {
                     {quantity}
                   </span>
                   <button 
-                    onClick={() => setQuantity(quantity + 1)}
+                    onClick={increaseQty}
                     className="btn btn-circle btn-outline"
                   >
                     +
